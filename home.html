@@ -24,6 +24,100 @@
 </head>
 
 <body>
+    <!-- navbar -->
+    <div class="navbar bg-base-100 shadow-sm lg:px-42">
+        <div class="navbar-start">
+            <div class="dropdown">
+                <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h8m-8 6h16" />
+                    </svg>
+                </div>
+                <ul tabindex="-1"
+                    class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                    <li><a>Item 1</a></li>
+                    <li>
+                        <a>Parent</a>
+                        <ul class="p-2">
+                            <li><a>Submenu 1</a></li>
+                            <li><a>Submenu 2</a></li>
+                        </ul>
+                    </li>
+                    <li><a>Item 3</a></li>
+                </ul>
+            </div>
+            <a class="btn btn-ghost text-xl text-primary">SwiftCart</a>
+        </div>
+        <div class="navbar-center hidden lg:flex">
+            <ul class="menu menu-horizontal px-1 space-x-2">
+                <li class="text-semibold font-semibold text-gray-500 hover:text-primary"><a href='/home.html'>Home</a>
+                </li>
+                <li class="text-semibold font-semibold text-gray-500 hover:text-primary"><a
+                        href="/products.html">Products</a></li>
+                <li class="text-semibold font-semibold text-gray-500 hover:text-primary"><a>About</a></li>
+                <li class="text-semibold font-semibold text-gray-500 hover:text-primary"><a>Contact</a></li>
+            </ul>
+        </div>
+        <div class="navbar-end pe-4">
+            <a href="#" class="text-gray-500 hover:text-primary"><i class="fa-solid fa-cart-shopping"></i></a>
+        </div>
+    </div>
+    <!-- hero section -->
+    <section>
+        <div class="hero min-h-[500px]" style="background-image: url(./Assets/banner-image.png);">
+            <div class="hero-overlay"></div>
+            <div class="hero-content text-neutral-content text-left">
+                <div class="">
+                    <h1 class="mb-5 text-3xl md:text-5xl lg:text-7xl font-bold">Best Collections For You</h1>
+                    <p class="mb-5">
+                        Discover the latest trends In fashion, elctronics and more. Shop with confidence and style at
+                        SwiftCart.
+                    </p>
+                    <button class="btn btn-primary">Shop Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- feature section -->
+    <section class="py-16 bg-[#F9FAFB]">
+        <div class="feature-heading text-center my-8 mx-6 lg:mx-8 space-y-4">
+            <h2 class="text-3xl font-bold">Why Choose Us</h2>
+            <p class="text-lg text-gray-600">We provide the best shopping experience with top-notch services.</p>
+        </div>
+        <div class="features grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mt-16 w-11/12 lg:9/12  mx-auto gap-16 lg:gap-8">
+            <div class="bg-white p-6 space-y-4 rounded-lg">
+                <div class="mt-[-60px] bg-[#EEF2FF] border-[3px] border-white rounded-[20%] w-20 h-20 flex justify-center items-center">
+                    <i class="fa-regular fa-truck text-3xl text-primary"></i>
+                </div>
+                <h3 class="text-lg font-semibold">Fast Delivery</h3>
+                <p class="text-gray-600 text-[15px]">Get your orders delivred to your doorstep quickly and effeciently</p>
+            </div>
+            <div class="bg-white p-6 space-y-4 rounded-lg">
+                <div class="mt-[-60px] bg-[#EEF2FF] border-[3px] border-white rounded-[20%] w-20 h-20 flex justify-center items-center">
+                    <i class="fa-regular fa-headphones text-3xl text-primary"></i>
+                </div>
+                <h3 class="text-lg font-semibold">24/7 Support</h3>
+                <p class="text-gray-600 text-[15px]">Get your orders delivred to your doorstep quickly and effeciently</p>
+            </div>
+            <div class="bg-white p-6 space-y-4 rounded-lg">
+                <div class="mt-[-60px] bg-[#EEF2FF] border-[3px] border-white rounded-[20%] w-20 h-20 flex justify-center items-center">
+                    <i class="fa-solid fa-shield text-3xl text-primary"></i>
+                </div>
+                <h3 class="text-lg font-semibold">Secure Payment</h3>
+                <p class="text-gray-600 text-[15px]">Get your orders delivred to your doorstep quickly and effeciently</p>
+            </div>
+            <div class="bg-white p-6 space-y-4 rounded-lg">
+                <div class="mt-[-60px] bg-[#EEF2FF] border-[3px] border-white rounded-[20%] w-20 h-20 flex justify-center items-center">
+                    <i class="fa-solid fa-arrows-rotate text-3xl text-primary"></i>
+                </div>
+                <h3 class="text-lg font-semibold">Easy Returns</h3>
+                <p class="text-gray-600 text-[15px]">Get your orders delivred to your doorstep quickly and effeciently</p>
+            </div>
+            </div>
+        </div>
+    </section>
     <!-- vanilla script -->
     <script src="./script.js"></script>
 </body>
