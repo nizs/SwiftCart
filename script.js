@@ -9,6 +9,7 @@ const loadTrending = () => {
 const displayTrending = trendings => {
     const trendyData = trendings.slice(0, 3);
     const trendingContainer = document.getElementById('trending-container');
+    if (!trendingContainer) return;
     for (let trend of trendyData) {
         // console.log(trend);
         const trendingCard = document.createElement("div");
@@ -60,15 +61,20 @@ const loadProductsBtn = () => {
 const displayProductsBtns = btns => {
     //1. get the container and empty
     const productBtnContainer = document.getElementById('productBtn-container');
-    // productBtnContainer.innerHTML = "";
+    productBtnContainer.innerHTML = "";
     // 2.get lesson from having a loop
     for (let btn of btns) {
-        console.log(btn);
+        // console.log(btn);
         //3.create element
         const btnDiv = document.createElement('div');
         btnDiv.innerHTML = `
-        <button onClick="loadProducts(${btn})" class="btn btn-outline btn-primary hover:text-white rounded-xl">${btn}</button>
+        <button class="btn btn-outline btn-primary hover:text-white rounded-xl">${btn}</button>
         `;
+        const categoryButton = btnDiv.querySelector('button');
+        categoryButton.addEventListener('click', () => {
+            loadProducts(btn);
+        });
+
         //4.Appned into container
         productBtnContainer.append(btnDiv);
     }
@@ -82,7 +88,60 @@ const loadProducts = category => {
 
     fetch(products)
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => displayProducts(data))
 }
 
 // Display levele words
+const displayProducts = products => {
+    //1. get the container and empty
+    const productsContainer = document.getElementById('products-container');
+    productsContainer.innerHTML = "";
+    if (products.length == 0) {
+        productsContainer.innerHTML = `
+        <div class="text-center bg-sky-100 col-span-full rounded-xl py-10 space-y-6 font-bangla">
+        <p class="text-xl font-medium text-black">No Category has been selected.Please seclect a category above</p>
+        <h2 class="font-bold text-4xl">নেক্সট <span class="text-primary">Lesson</span> এ যান</h2>
+    </div>
+        `
+        return;
+    }
+    // 2.get level words from having a loop
+    for (let product of products) {
+        // console.log(product);
+        //3.create element
+        const productCard = document.createElement('div');
+        productCard.innerHTML = `
+        <div class="card bg-white shadow-sm">
+        <figure>
+          <img
+              src="${product.image}"
+              class='p-12 bg-gray-300 '
+          />
+        </figure>
+        <div class="card-body">
+          <div class="flex justify-between">
+            <div class="badge bg-[#E0E7FF]">${product.category}</div>
+            <div class="">
+            <span><i class="text-yellow-500 fa-solid fa-star"></i></span>
+            <span>${product.rating.rate}</span>
+            <span>(${product.rating.count})</span>
+            </div>
+          </div>
+          <p>${product.title.slice(0, 30)}...</p>
+          <h2 class="card-title">$${product.price}</h2>
+          <div class="card-actions justify-between">
+            <button class="btn btn-outline text-[12px]">
+            <i class="fa-regular fa-eye"></i>
+            Details</button>
+            <button class="btn btn-primary text-[12px]">
+            <i class="fa-solid fa-cart-shopping"></i>
+            Add to Cart</button>
+          </div>
+        </div>
+      </div>
+        `
+        //4.Appned into container
+        productsContainer.append(productCard);
+    }
+
+}
