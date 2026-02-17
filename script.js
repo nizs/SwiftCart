@@ -130,7 +130,7 @@ const displayProducts = products => {
           <p>${product.title.slice(0, 30)}...</p>
           <h2 class="card-title">$${product.price}</h2>
           <div class="card-actions justify-between">
-            <button class="btn btn-outline text-[12px]">
+            <button onClick="loadProductDetails(${product.id})" class="btn btn-outline text-[12px]">
             <i class="fa-regular fa-eye"></i>
             Details</button>
             <button class="btn btn-primary text-[12px]">
@@ -144,4 +144,27 @@ const displayProducts = products => {
         productsContainer.append(productCard);
     }
 
+}
+
+const loadProductDetails = id => {
+    const productDetail = `https://fakestoreapi.com/products/${id}`;
+
+    fetch(productDetail)
+        .then(res => res.json())
+        .then(data => displayProductDetails(data))
+}
+
+const displayProductDetails = product => {
+    const productDetails = document.getElementById("product-details-container");
+    productDetails.innerHTML = `<div class="card bg-base-100 card-lg shadow-sm">
+    <div class="card-body">
+      <h2 class="card-title">${product.title}</h2>
+      <p>Description: ${product.description.slice(0, 20)}</p>
+      <p>Price: $${product.price}</p>
+      <p>Rating: ${product.rating.rate}</p>
+      <div class="justify-end card-actions">
+        <button class="btn btn-primary">Buy Now</button>
+      </div>
+    </div>`;
+    document.getElementById("product_detals_modal").showModal();
 }
