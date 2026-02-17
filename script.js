@@ -1,0 +1,88 @@
+// loading trending data
+const loadTrending = () => {
+    const trending = "https://fakestoreapi.com/products";
+    fetch(trending)
+        .then(res => res.json())
+        .then(data => displayTrending(data))
+}
+// displaying teending data
+const displayTrending = trendings => {
+    const trendyData = trendings.slice(0, 3);
+    const trendingContainer = document.getElementById('trending-container');
+    for (let trend of trendyData) {
+        // console.log(trend);
+        const trendingCard = document.createElement("div");
+        trendingCard.innerHTML = `
+        <div class="card bg-white shadow-sm">
+  <figure>
+    <img
+        src="${trend.image}"
+        class='p-12 bg-gray-300 '
+    />
+  </figure>
+  <div class="card-body">
+    <div class="flex justify-between">
+      <div class="badge bg-[#E0E7FF]">${trend.category}</div>
+      <div class="">
+      <span><i class="text-yellow-500 fa-solid fa-star"></i></span>
+      <span>${trend.rating.rate}</span>
+      <span>(${trend.rating.count})</span>
+      </div>
+    </div>
+    <p>${trend.title.slice(0, 30)}...</p>
+    <h2 class="card-title">$${trend.price}</h2>
+    <div class="card-actions justify-between">
+      <button class="btn btn-outline text-[12px]">
+      <i class="fa-regular fa-eye"></i>
+      Details</button>
+      <button class="btn btn-primary text-[12px]">
+      <i class="fa-solid fa-cart-shopping"></i>
+      Add to Cart</button>
+    </div>
+  </div>
+</div>
+        `;
+        trendingContainer.append(trendingCard);
+    }
+}
+loadTrending();
+
+
+// Load products btn by category
+const loadProductsBtn = () => {
+    const allproductsBtn = 'https://fakestoreapi.com/products/categories';
+
+    fetch(allproductsBtn)
+        .then(res => res.json())
+        .then(data => displayProductsBtns(data))
+}
+// display Product buttons by category
+const displayProductsBtns = btns => {
+    //1. get the container and empty
+    const productBtnContainer = document.getElementById('productBtn-container');
+    // productBtnContainer.innerHTML = "";
+    // 2.get lesson from having a loop
+    for (let btn of btns) {
+        console.log(btn);
+        //3.create element
+        const btnDiv = document.createElement('div');
+        btnDiv.innerHTML = `
+        <button onClick="loadProducts(${btn})" class="btn btn-outline btn-primary hover:text-white rounded-xl">${btn}</button>
+        `;
+        //4.Appned into container
+        productBtnContainer.append(btnDiv);
+    }
+}
+
+loadProductsBtn();
+
+// load products data by category
+const loadProducts = category => {
+    const products = `https://fakestoreapi.com/products/category/${category}`;
+
+    fetch(products)
+        .then(res => res.json())
+        .then(data => console.log(data))
+}
+
+// Display levele words
