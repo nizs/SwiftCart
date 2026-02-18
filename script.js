@@ -48,6 +48,7 @@ const displayTrending = trendings => {
 }
 loadTrending();
 
+
 //Load All products data
 const loadAllProducts = () => {
   const allProducts = "https://fakestoreapi.com/products";
@@ -110,6 +111,7 @@ const displayAllProducts = (products) => {
   }
 }
 
+
 // Load products btn by category
 const loadProductsBtn = () => {
   const allproductsBtn = 'https://fakestoreapi.com/products/categories';
@@ -146,8 +148,8 @@ const displayProductsBtns = btns => {
     productBtnContainer.append(btnDiv);
   }
 }
-
 loadProductsBtn();
+
 
 // load products data by category
 const loadProducts = category => {
@@ -213,6 +215,7 @@ const displayProducts = products => {
 
 }
 
+// load product deatail data
 const loadProductDetails = id => {
   const productDetail = `https://fakestoreapi.com/products/${id}`;
 
@@ -220,7 +223,7 @@ const loadProductDetails = id => {
     .then(res => res.json())
     .then(data => displayProductDetails(data))
 }
-
+// display product details data
 const displayProductDetails = product => {
   const productDetails = document.getElementById("product-details-container");
   productDetails.innerHTML = `<div class="card bg-base-100 card-lg shadow-sm">
