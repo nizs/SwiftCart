@@ -33,7 +33,7 @@ const displayTrending = trendings => {
     <p>${trend.title.slice(0, 30)}...</p>
     <h2 class="card-title">$${trend.price}</h2>
     <div class="card-actions justify-between">
-      <button class="btn btn-outline text-[12px]">
+      <button onClick="loadProductDetails(${trend.id})"  class="btn btn-outline text-[12px]">
       <i class="fa-regular fa-eye"></i>
       Details</button>
       <button class="btn btn-primary text-[12px]">
@@ -158,7 +158,7 @@ const loadProducts = category => {
     .then(data => displayProducts(data))
 }
 
-// Display levele words
+// Display products
 const displayProducts = products => {
   //1. get the container and empty
   const productsContainer = document.getElementById('products-container');
@@ -172,7 +172,7 @@ const displayProducts = products => {
         `
     return;
   }
-  // 2.get level words from having a loop
+  // 2.get products from having a loop
   for (let product of products) {
     // console.log(product);
     //3.create element
