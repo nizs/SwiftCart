@@ -1,4 +1,18 @@
-// loading trending data
+
+
+// -------------------------
+// SwiftCart functionality
+// -------------------------
+
+
+
+/*
+-------------------------------------
+loading & Displaying trending data
+-------------------------------------
+*/
+
+// Loading Tending Data
 const loadTrending = () => {
   const trending = "https://fakestoreapi.com/products";
   fetch(trending)
@@ -49,6 +63,13 @@ const displayTrending = trendings => {
 loadTrending();
 
 
+/*
+-------------------------------------
+loading All Products data
+-------------------------------------
+*/
+
+
 //Load All products data
 const loadAllProducts = () => {
   const allProducts = "https://fakestoreapi.com/products";
@@ -62,49 +83,40 @@ const displayAllProducts = (products) => {
   //1. get the container and empty
   const productsContainer = document.getElementById('products-container');
   productsContainer.innerHTML = "";
-  if (products.length == 0) {
-    productsContainer.innerHTML = `
-         <div class="text-center bg-sky-100 col-span-full rounded-xl py-10 space-y-6 font-bangla">
-         <p class="text-xl font-medium text-black">No Category has been selected.Please seclect a category above</p>
-         <h2 class="font-bold text-4xl">নেক্সট <span class="text-primary">Lesson</span> এ যান</h2>
-     </div>
-         `
-    return;
-  }
   // 2.get level words from having a loop
   for (let product of products) {
     // console.log(product);
     //3.create element
     const productCard = document.createElement('div');
     productCard.innerHTML = `
-         <div class="card bg-white shadow-sm">
-         <figure>
-           <img
-               src="${product.image}"
-               class='p-12 bg-gray-300 '
-           />
-         </figure>
-         <div class="card-body">
-           <div class="flex justify-between">
-             <div class="badge bg-[#E0E7FF]">${product.category}</div>
-             <div class="">
-             <span><i class="text-yellow-500 fa-solid fa-star"></i></span>
-             <span>${product.rating.rate}</span>
-             <span>(${product.rating.count})</span>
-             </div>
-           </div>
-           <p>${product.title.slice(0, 30)}...</p>
-           <h2 class="card-title">$${product.price}</h2>
-           <div class="card-actions justify-between">
-             <button onClick="loadProductDetails(${product.id})" class="btn btn-outline text-[12px]">
-             <i class="fa-regular fa-eye"></i>
-             Details</button>
-             <button class="btn btn-primary text-[12px]">
-             <i class="fa-solid fa-cart-shopping"></i>
-             Add to Cart</button>
-           </div>
-         </div>
-       </div>
+    <div class="card bg-white shadow-sm">
+    <figure>
+      <img
+          src="${product.image}"
+          class='p-12 bg-gray-300 '
+      />
+    </figure>
+    <div class="card-body px-2">
+      <div class="flex justify-between items-center">
+        <div class="badge bg-[#E0E7FF] text-[12px]">${product.category}</div>
+        <div class="text-[12px]">
+        <span><i class="text-yellow-500 fa-solid fa-star"></i></span>
+        <span>${product.rating.rate}</span>
+        <span>(${product.rating.count})</span>
+        </div>
+      </div>
+      <p>${product.title.slice(0, 30)}...</p>
+      <h2 class="card-title">$${product.price}</h2>
+      <div class="card-actions justify-between text-[12px]">
+        <button onClick="loadProductDetails(${product.id})" class="btn btn-outline text-[12px]">
+        <i class="fa-regular fa-eye"></i>
+        Details</button>
+        <button class="btn btn-primary text-[12px]">
+        <i class="fa-solid fa-cart-shopping"></i>
+        Add to Cart</button>
+      </div>
+    </div>
+  </div>
          `
     //4.Appned into container
     productsContainer.append(productCard);
@@ -113,21 +125,25 @@ const displayAllProducts = (products) => {
 
 
 
+/*
+-------------------------------------------------
+loading & Displaying Product buttons by category
+-------------------------------------------------
+*/
 
+// load product button by category
 const loadProductsBtn = () => {
   const allproductsBtn = 'https://fakestoreapi.com/products/categories';
 
   fetch(allproductsBtn)
     .then(res => res.json())
-    .then(data => displayProductsBtns(data));
-  loadAllProducts();
+    .then(data => {
+      displayProductsBtns(data);
+      //All products load after buttons render.
+      loadAllProducts();
+    });
 }
-// display Product buttons by category
-
-
-
-
-// Load products btn by 
+// display Product buttons by category 
 const displayProductsBtns = btns => {
   // 1. get the container and empty
   const productBtnContainer = document.getElementById('productBtn-container');
@@ -146,23 +162,22 @@ const displayProductsBtns = btns => {
 
     const categoryButton = btnDiv.querySelector('button');
 
-    // ✅ Make "All" active by default
+    // Make "All" active by default
     if (btn === "All") {
       categoryButton.classList.add("btn-active");
     }
 
     categoryButton.addEventListener('click', () => {
 
-      // 🔥 Remove active from all buttons
+      // Remove active from all buttons
       const allButtons = document.querySelectorAll('.category-btn');
       allButtons.forEach(button => {
         button.classList.remove('btn-active');
       });
 
-      // 🔥 Add active to clicked button
+      // Add active to clicked button
       categoryButton.classList.add('btn-active');
 
-      // Your existing logic
       if (btn === "All") {
         loadAllProducts();
       } else {
@@ -177,6 +192,14 @@ const displayProductsBtns = btns => {
 loadProductsBtn();
 
 
+
+
+/*
+-------------------------------------------------
+loading & Displaying Product Data by category
+-------------------------------------------------
+*/
+
 // load products data by category
 const loadProducts = category => {
   const products = `https://fakestoreapi.com/products/category/${category}`;
@@ -186,20 +209,11 @@ const loadProducts = category => {
     .then(data => displayProducts(data))
 }
 
-// Display products
+// Display products Data by category
 const displayProducts = products => {
   //1. get the container and empty
   const productsContainer = document.getElementById('products-container');
   productsContainer.innerHTML = "";
-  if (products.length == 0) {
-    productsContainer.innerHTML = `
-        <div class="text-center bg-sky-100 col-span-full rounded-xl py-10 space-y-6 font-bangla">
-        <p class="text-xl font-medium text-black">No Category has been selected.Please seclect a category above</p>
-        <h2 class="font-bold text-4xl">নেক্সট <span class="text-primary">Lesson</span> এ যান</h2>
-    </div>
-        `
-    return;
-  }
   // 2.get products from having a loop
   for (let product of products) {
     // console.log(product);
@@ -240,6 +254,13 @@ const displayProducts = products => {
   }
 
 }
+
+
+/*
+-------------------------------------------------
+loading & Displaying Product deatail data
+-------------------------------------------------
+*/
 
 // load product deatail data
 const loadProductDetails = id => {
