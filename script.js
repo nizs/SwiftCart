@@ -112,42 +112,68 @@ const displayAllProducts = (products) => {
 }
 
 
-// Load products btn by category
+
+
 const loadProductsBtn = () => {
   const allproductsBtn = 'https://fakestoreapi.com/products/categories';
 
   fetch(allproductsBtn)
     .then(res => res.json())
-    .then(data => displayProductsBtns(data))
+    .then(data => displayProductsBtns(data));
+  loadAllProducts();
 }
 // display Product buttons by category
+
+
+
+
+// Load products btn by 
 const displayProductsBtns = btns => {
-  //1. get the container and empty
+  // 1. get the container and empty
   const productBtnContainer = document.getElementById('productBtn-container');
   productBtnContainer.innerHTML = "";
+
   btns.unshift("All");
-  // 2.get lesson from having a loop
+
   for (let btn of btns) {
-    // console.log(btn);
-    //3.create element
+
     const btnDiv = document.createElement('div');
     btnDiv.innerHTML = `
-        <button class="btn btn-outline btn-primary hover:text-white rounded-xl">${btn}</button>
-        `;
+      <button class="category-btn btn btn-outline btn-primary hover:text-white rounded-xl">
+        ${btn}
+      </button>
+    `;
+
     const categoryButton = btnDiv.querySelector('button');
+
+    // ✅ Make "All" active by default
+    if (btn === "All") {
+      categoryButton.classList.add("btn-active");
+    }
+
     categoryButton.addEventListener('click', () => {
+
+      // 🔥 Remove active from all buttons
+      const allButtons = document.querySelectorAll('.category-btn');
+      allButtons.forEach(button => {
+        button.classList.remove('btn-active');
+      });
+
+      // 🔥 Add active to clicked button
+      categoryButton.classList.add('btn-active');
+
+      // Your existing logic
       if (btn === "All") {
-        loadAllProducts();   // 🔥 call special function
+        loadAllProducts();
       } else {
-        loadProducts(btn);   // existing category loader
+        loadProducts(btn);
       }
 
     });
 
-    //4.Appned into container
     productBtnContainer.append(btnDiv);
   }
-}
+};
 loadProductsBtn();
 
 
@@ -187,10 +213,10 @@ const displayProducts = products => {
               class='p-12 bg-gray-300 '
           />
         </figure>
-        <div class="card-body">
-          <div class="flex justify-between">
-            <div class="badge bg-[#E0E7FF]">${product.category}</div>
-            <div class="">
+        <div class="card-body px-2">
+          <div class="flex justify-between items-center">
+            <div class="badge bg-[#E0E7FF] text-[12px]">${product.category}</div>
+            <div class="text-[12px]">
             <span><i class="text-yellow-500 fa-solid fa-star"></i></span>
             <span>${product.rating.rate}</span>
             <span>(${product.rating.count})</span>
@@ -198,7 +224,7 @@ const displayProducts = products => {
           </div>
           <p>${product.title.slice(0, 30)}...</p>
           <h2 class="card-title">$${product.price}</h2>
-          <div class="card-actions justify-between">
+          <div class="card-actions justify-between text-[12px]">
             <button onClick="loadProductDetails(${product.id})" class="btn btn-outline text-[12px]">
             <i class="fa-regular fa-eye"></i>
             Details</button>
